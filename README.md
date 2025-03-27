@@ -1,4 +1,4 @@
-# Automation AQA homework
+# Automation AQA JS/TS + Playwright
 
 ## Table of contents
 * [Preconditions](#preconditions)

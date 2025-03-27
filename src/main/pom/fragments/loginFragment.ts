@@ -29,6 +29,4 @@ export class LoginFragment {
     public getErrorMessageField(): Locator {
         return this.errorMessageField;
     }
-
-
 }

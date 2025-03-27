@@ -15,7 +15,6 @@ export class SignUpFragment {
         this.signUpButton = page.locator("[data-qa='signup-button']");
     }
 
-
     public async fillSignUpForm(user: User) {
         await this.signUpName.fill(user.getFullName());
         await this.signUpEmail.fill(user.getEmail());
@@ -24,6 +23,4 @@ export class SignUpFragment {
     public getSignUpButton(): Locator{
         return this.signUpButton;
     }
-
-
 }

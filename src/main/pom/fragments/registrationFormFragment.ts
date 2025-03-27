@@ -17,7 +17,6 @@ export class RegistrationFormFragment {
     private readonly mobileInput: Locator;
     private readonly createAccountButton: Locator;
 
-
     constructor(page: Page){
         this.page = page;
         this.fullName = page.locator("#name");

@@ -1,6 +1,5 @@
 import { Locator, Page } from "@playwright/test";
 
-
 export class AccountCreatedFragment {
 
      private readonly page: Page;
@@ -20,5 +19,4 @@ export class AccountCreatedFragment {
      public getContinueButton(): Locator{
         return this.continueButton;
      }
-     
 }

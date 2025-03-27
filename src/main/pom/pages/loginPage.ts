@@ -28,5 +28,4 @@ export class LoginPage implements AbstractPage {
     public getLoginFragment(): LoginFragment {
         return this.loginFragment;
     }
-
 }

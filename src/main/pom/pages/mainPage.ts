@@ -2,7 +2,6 @@ import { Page } from "@playwright/test";
 import { HeaderMenuFragment } from "../fragments/headerMenuFragment";
 import { AbstractPage } from "../interfaces/AbstractPage";
 
-
 export class MainPage implements AbstractPage {
     private readonly page: Page;
     private readonly headerMenuFragment: HeaderMenuFragment;
@@ -21,5 +20,4 @@ export class MainPage implements AbstractPage {
     public getHeaderMenuFragment(): HeaderMenuFragment{
         return this.headerMenuFragment;
     }
-    
 }

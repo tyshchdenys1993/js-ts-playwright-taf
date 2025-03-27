@@ -21,5 +21,4 @@ export class SignUpPage implements AbstractPage {
     public getRegistrationFormFragment(): RegistrationFormFragment{
         return this.registrationFormFragment;
     }
-
 }

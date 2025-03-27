@@ -15,8 +15,6 @@ export class AccountCreatedPage implements AbstractPage {
         this.accountCreatedFragment = new AccountCreatedFragment(page);
     }
     
-    
-    
     open(): Promise<void> {
         throw new Error("Method not implemented.");
     }
@@ -24,6 +22,4 @@ export class AccountCreatedPage implements AbstractPage {
     public getAccountCreatedFragment(): AccountCreatedFragment{
         return this.accountCreatedFragment
     }
-
-    
 }

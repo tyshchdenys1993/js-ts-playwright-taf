@@ -1,8 +1,8 @@
 import { RegistrationFormFragment } from "../fragments/registrationFormFragment";
-import { AbstractPage } from "../interfaces/AbstractPage";
+import { NavigablePage } from "../interfaces/AbstractPage";
 import { Page } from "@playwright/test";
 
-export class SignUpPage implements AbstractPage {
+export class SignUpPage implements NavigablePage {
 
     private readonly page: Page;
     private readonly baseUrl: string;
@@ -15,7 +15,7 @@ export class SignUpPage implements AbstractPage {
     }
 
     public async open(): Promise<void> {
-        this.page.goto(this.baseUrl);
+        await this.page.goto(this.baseUrl);
     }
 
     public getRegistrationFormFragment(): RegistrationFormFragment{

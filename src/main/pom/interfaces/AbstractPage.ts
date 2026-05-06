@@ -1,3 +1,3 @@
-export interface AbstractPage {
+export interface NavigablePage {
     open(): Promise<void>;
 }

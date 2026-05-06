@@ -9,7 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: "https://www.automationexercise.com/",
+    baseURL: process.env.BASE_URL ?? "https://www.automationexercise.com/",
     trace: "on",
     video: "on",
     screenshot: "on",
@@ -26,10 +26,26 @@ export default defineConfig({
           args: [
             "--mute-audio",
             "--use-fake-ui-for-media-stream",
-            "--disable-translate"
+            "--disable-translate",
           ],
-          ignoreDefaultArgs: ["--enable-automation"]
+          ignoreDefaultArgs: ["--enable-automation"],
         },
+      },
+    },
+    {
+      name: "firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+        viewport: { width: 1920, height: 1080 },
+        javaScriptEnabled: false,
+      },
+    },
+    {
+      name: "webkit",
+      use: {
+        ...devices["Desktop Safari"],
+        viewport: { width: 1920, height: 1080 },
+        javaScriptEnabled: false,
       },
     },
   ],

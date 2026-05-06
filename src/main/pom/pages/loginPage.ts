@@ -1,10 +1,9 @@
 import { Page } from "@playwright/test";
-import { AbstractPage } from "../interfaces/AbstractPage";
+import { NavigablePage } from "../interfaces/AbstractPage";
 import { SignUpFragment } from "../fragments/signUpFragment";
 import { LoginFragment } from "../fragments/loginFragment";
-import { th } from "@faker-js/faker";
 
-export class LoginPage implements AbstractPage {
+export class LoginPage implements NavigablePage {
     private readonly page: Page;
     private readonly baseUrl: string;
     private readonly signUpFragment: SignUpFragment;

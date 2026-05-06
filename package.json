@@ -2,7 +2,15 @@
   "name": "pw-test-practice-denys",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write src"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -10,6 +18,10 @@
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",
     "@playwright/test": "^1.51.1",
-    "@types/node": "^22.13.13"
+    "@types/node": "^22.13.13",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "typescript-eslint": "^8.59.2"
   }
 }

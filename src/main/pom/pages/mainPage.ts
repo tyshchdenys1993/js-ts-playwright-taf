@@ -1,8 +1,8 @@
 import { Page } from "@playwright/test";
 import { HeaderMenuFragment } from "../fragments/headerMenuFragment";
-import { AbstractPage } from "../interfaces/AbstractPage";
+import { NavigablePage } from "../interfaces/AbstractPage";
 
-export class MainPage implements AbstractPage {
+export class MainPage implements NavigablePage {
     private readonly page: Page;
     private readonly headerMenuFragment: HeaderMenuFragment;
     private readonly baseUrl: string;

@@ -1,8 +1,9 @@
 import { UserFactory } from "../main/data/user/factory/UserFactory";
 import {test, expect} from "../main/fixtures/fixture";
 
-test("Case 1: Register new user and verify that account is created and user is logged in", async({page, baseURL, main, login, signUp, accountCreated}) => {
+test("Case 1: Register new user and verify that account is created and user is logged in", async({page, baseURL, main, login, signUp, accountCreated}, testInfo) => {
     const user = new UserFactory().create();
+    testInfo.annotations.push({ type: "User data", description: user.toString() });
     const headerMenu = main.getHeaderMenuFragment();
 
     await test.step("Open Main page", async () => {
@@ -36,8 +37,9 @@ test("Case 1: Register new user and verify that account is created and user is l
 })  
 
 
-test("Case 2: Information during signing up is applied to registration form", async({main, login, signUp}) => {
+test("Case 2: Information during signing up is applied to registration form", async({main, login, signUp}, testInfo) => {
     const user = new UserFactory().create();
+    testInfo.annotations.push({ type: "User data", description: user.toString() });
 
     await test.step("Open Main page", async () => {
         await main.open();
@@ -61,8 +63,9 @@ test("Case 2: Information during signing up is applied to registration form", as
 })  
 
 
-test("Case 3: Login with invalid credentials", async({ main, login}) => {
+test("Case 3: Login with invalid credentials", async({ main, login}, testInfo) => {
     const user = new UserFactory().create();
+    testInfo.annotations.push({ type: "User data", description: user.toString() });
 
     await test.step("Open Main page", async () => {
         await main.open();

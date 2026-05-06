@@ -1,7 +1,7 @@
 import { UserFactory } from "../main/data/user/factory/UserFactory";
-import {test, expect} from "../main/fixtures/fixture";
+import { test, expect } from "../main/fixtures/fixture";
 
-test("Case 1: Register new user and verify that account is created and user is logged in", async({page, baseURL, main, login, signUp, accountCreated}, testInfo) => {
+test("Case 1: Register new user and verify that account is created and user is logged in", async({ page, main, login, signUp, accountCreated}, testInfo) => {
     const user = new UserFactory().create();
     testInfo.annotations.push({ type: "User data", description: user.toString() });
     const headerMenu = main.getHeaderMenuFragment();
@@ -10,7 +10,7 @@ test("Case 1: Register new user and verify that account is created and user is l
         await main.open();
     })
 
-    await test.step("Click to Sign Up/Login buttin and open Login Page", async () => {
+    await test.step("Click to Sign Up/Login button and open Login Page", async () => {
         await headerMenu.getSignUpLoginButton().click();
     })
 
@@ -27,12 +27,12 @@ test("Case 1: Register new user and verify that account is created and user is l
         await registrationForm.getCreateAccountButton().click();
     })
 
-    await test.step("Verify that account is created and user is logged in", async () => {  
+    await test.step("Verify that account is created and user is logged in", async () => {
         const accountCreatedFragment = accountCreated.getAccountCreatedFragment();
-        expect(await accountCreatedFragment.getPageHeader().textContent()).toBe("Account Created!");
+        await expect(accountCreatedFragment.getPageHeader()).toHaveText("Account Created!");
         await accountCreatedFragment.getContinueButton().click();
-        expect(await page.url()).toBe(baseURL);
-        expect(await headerMenu.getLoggedInUserField().textContent()).toBe(user.getFullName());
+        await expect(page).toHaveURL("/");
+        await expect(headerMenu.getLoggedInUserField()).toHaveText(user.getFullName());
     })
 })  
 
@@ -45,7 +45,7 @@ test("Case 2: Information during signing up is applied to registration form", as
         await main.open();
     })
 
-    await test.step("Click to Sign Up/Login buttin and open Login Page", async () => {
+    await test.step("Click to Sign Up/Login button and open Login Page", async () => {
         await main.getHeaderMenuFragment().getSignUpLoginButton().click();
     })
 
@@ -57,8 +57,8 @@ test("Case 2: Information during signing up is applied to registration form", as
 
     await test.step("Verify that information about user name and email is displayed on the form", async () => {
         const registrationForm = signUp.getRegistrationFormFragment();
-        expect (await registrationForm.getFullName().getAttribute("value")).toBe(user.getFullName());
-        expect (await registrationForm.getEmail().getAttribute("value")).toBe(user.getEmail());
+        await expect(registrationForm.getFullName()).toHaveValue(user.getFullName());
+        await expect(registrationForm.getEmail()).toHaveValue(user.getEmail());
     })
 })  
 
@@ -71,7 +71,7 @@ test("Case 3: Login with invalid credentials", async({ main, login}, testInfo) =
         await main.open();
     })
 
-    await test.step("Click to Sign Up/Login buttin and open Login Page", async () => {
+    await test.step("Click to Sign Up/Login button and open Login Page", async () => {
         await main.getHeaderMenuFragment().getSignUpLoginButton().click();
     })
 
@@ -79,6 +79,6 @@ test("Case 3: Login with invalid credentials", async({ main, login}, testInfo) =
         const loginFragment = login.getLoginFragment();
         await loginFragment.fillLoginForm(user);
         await loginFragment.getLoginButton().click();
-        expect (await loginFragment.getErrorMessageField().textContent()).toBe("Your email or password is incorrect!");
+        await expect(loginFragment.getErrorMessageField()).toHaveText("Your email or password is incorrect!");
     })
 })  

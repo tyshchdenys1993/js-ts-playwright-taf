@@ -10,9 +10,9 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: process.env.BASE_URL ?? "https://www.automationexercise.com/",
-    trace: "on",
-    video: "on",
-    screenshot: "on",
+    trace: "retain-on-failure",
+    video: "retain-on-failure",
+    screenshot: "only-on-failure",
     ignoreHTTPSErrors: true
   },
   projects: [

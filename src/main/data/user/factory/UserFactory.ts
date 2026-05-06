@@ -9,7 +9,7 @@ export class UserFactory implements Factory<User> {
         const lastName = faker.person.lastName();
         return User.Builder.setFullName(`${firstName} ${lastName}`)
             .setSex(faker.helpers.enumValue(Sex))
-            .setEmail(faker.internet.email())
+            .setEmail(`${faker.internet.email()}_${Date.now()}`)
             .setPassword(faker.internet.password())
             .setAddressFirstName(firstName)
             .setAddressLastName(lastName)

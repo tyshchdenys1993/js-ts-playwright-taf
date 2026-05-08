@@ -7,12 +7,14 @@ export class SignUpFragment {
     private readonly signUpName: Locator;
     private readonly signUpEmail: Locator;
     private readonly signUpButton: Locator;
+    private readonly existingEmailError: Locator;
 
     constructor(page: Page){
         this.page = page;
         this.signUpName = page.locator("[data-qa='signup-name']");
         this.signUpEmail = page.locator("[data-qa='signup-email']");
         this.signUpButton = page.locator("[data-qa='signup-button']");
+        this.existingEmailError = page.locator("form[action='/signup'] p");
     }
 
     public async fillSignUpForm(user: User) {
@@ -20,7 +22,11 @@ export class SignUpFragment {
         await this.signUpEmail.fill(user.getEmail());
     }
 
-    public getSignUpButton(): Locator{
+    public getSignUpButton(): Locator {
         return this.signUpButton;
+    }
+
+    public getExistingEmailError(): Locator {
+        return this.existingEmailError;
     }
 }

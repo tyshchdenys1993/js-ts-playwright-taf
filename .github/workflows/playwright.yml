@@ -45,7 +45,19 @@ jobs:
         env:
           BASE_URL: ${{ vars.BASE_URL }}
 
-      - name: Upload report
+      - name: Generate Allure report
+        if: always()
+        run: npm run allure:generate
+
+      - name: Upload Allure report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30
+
+      - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: always()
         with:

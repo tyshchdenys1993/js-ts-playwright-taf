@@ -1,4 +1,5 @@
 import { test, expect } from "../main/fixtures/fixture";
+import { UserFactory } from "../main/data/user/factory/UserFactory";
 
 test.beforeEach(async ({ main }) => {
     await test.step("Open Main page", async () => {
@@ -145,5 +146,25 @@ test("Case 7 [Negative]: Registration with empty required fields", async ({ logi
     await test.step("Click Create Account without filling required fields and verify form is not submitted", async () => {
         await signUp.getRegistrationFormFragment().getCreateAccountButton().click();
         await expect(signUp.getRegistrationFormFragment().getPasswordInput()).toBeVisible();
+    });
+});
+
+
+test("Case 8 [Negative]: Login with empty fields", async ({ login }) => {
+    await test.step("Click Login button without filling fields and verify form is not submitted", async () => {
+        const loginFragment = login.getLoginFragment();
+        await loginFragment.getLoginButton().click();
+        await expect(loginFragment.getLoginEmailInput()).toBeVisible();
+    });
+});
+
+
+test("Case 9 [Negative]: Registration with invalid email format", async ({ login }) => {
+    await test.step("Fill Sign Up form with invalid email format and verify form is not submitted", async () => {
+        const user = new UserFactory().create({ fullName: "Test User", email: "invalid-email" });
+        const signUpFragment = login.getSignUpFragment();
+        await signUpFragment.fillSignUpForm(user);
+        await signUpFragment.getSignUpButton().click();
+        await expect(signUpFragment.getSignUpButton()).toBeVisible();
     });
 });

@@ -22,7 +22,11 @@ export class LoginFragment {
         await this.loginPasswordInput.fill(user.getPassword());
     }
 
-    public getLoginButton(): Locator{
+    public getLoginEmailInput(): Locator {
+        return this.loginEmailInput;
+    }
+
+    public getLoginButton(): Locator {
         return this.loginButton;
     }
 

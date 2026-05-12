@@ -30,6 +30,7 @@ npx playwright install
 | `npm run test:headed` | Run tests with visible browser |
 | `npm run test:debug` | Run tests in debug mode |
 | `npm run report` | Open HTML report |
+| `npm run typecheck` | Type-check without emitting files |
 | `npm run lint` | Check code with ESLint |
 | `npm run lint:fix` | Auto-fix ESLint issues |
 | `npm run format` | Format code with Prettier |
@@ -80,7 +81,7 @@ src/
 Pages encapsulate navigation and expose fragments. Fragments represent reusable UI sections (e.g. the header menu appears on multiple pages). Tests interact only with fragments, never with raw locators.
 
 **Fixtures**
-Each page is injected into tests via Playwright fixtures defined in `fixture.ts`. No manual `new Page()` in tests.
+Each page is injected into tests via Playwright fixtures defined in `fixture.ts`. No manual `new Page()` in tests. The `page` fixture is extended to suppress the Google Funding Choices consent banner before any navigation: `addInitScript` stubs the IAB TCF API so the banner never initialises, and `page.route()` blocks the banner script at the network level.
 
 **Builder + Factory**
 `User` is constructed via a fluent Builder API. `UserFactory` generates a random valid user using Faker for every test run.

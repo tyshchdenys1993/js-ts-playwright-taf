@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base, Page } from '@playwright/test';
 import { AccountCreatedPage } from '../pom/pages/accountCreatedPage';
 import { LoginPage } from '../pom/pages/loginPage';
 import { MainPage } from '../pom/pages/mainPage';
@@ -14,7 +14,24 @@ type Fixtures = {
     user: User;
 };
 
+async function suppressConsentBanner(page: Page): Promise<void> {
+    await page.addInitScript(() => {
+        // Stub IAB TCF API — signals "no GDPR consent required" before banner scripts run
+        (window as Window & { __tcfapi?: unknown }).__tcfapi = (
+            _cmd: string,
+            _version: number,
+            callback: (data: object, success: boolean) => void
+        ) => callback({ gdprApplies: false }, true);
+    });
+    // Block the Google Funding Choices script that renders the fc-consent-root banner
+    await page.route('**/fundingchoicesmessages.google.com/**', route => route.abort());
+}
+
 export const test = base.extend<Fixtures>({
+    page: async ({ page }, use) => {
+        await suppressConsentBanner(page);
+        await use(page);
+    },
     main: async ({ page }, use) => {
         const main = new MainPage(page, "/");
         await use(main);

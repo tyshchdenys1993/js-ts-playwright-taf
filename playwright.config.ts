@@ -21,8 +21,6 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
-        // JS disabled to suppress the cookie consent banner that blocks test interactions
-        javaScriptEnabled: false,
         launchOptions: {
           args: [
             "--mute-audio",
@@ -38,8 +36,6 @@ export default defineConfig({
       use: {
         ...devices["Desktop Firefox"],
         viewport: { width: 1920, height: 1080 },
-        // JS disabled to suppress the cookie consent banner that blocks test interactions
-        javaScriptEnabled: false,
       },
     },
     {
@@ -47,8 +43,6 @@ export default defineConfig({
       use: {
         ...devices["Desktop Safari"],
         viewport: { width: 1920, height: 1080 },
-        // JS disabled to suppress the cookie consent banner that blocks test interactions
-        javaScriptEnabled: false,
       },
     },
   ],

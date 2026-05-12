@@ -18,6 +18,9 @@ on:
           - firefox
           - webkit
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -32,8 +35,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+
+      - name: Install Playwright system deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps
 
       - name: Run tests
         run: |
@@ -45,17 +60,29 @@ jobs:
         env:
           BASE_URL: ${{ vars.BASE_URL }}
 
-      - name: Generate Allure report
+      - name: Get Allure history
+        uses: actions/checkout@v4
         if: always()
-        run: npm run allure:generate
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
 
-      - name: Upload Allure report
-        uses: actions/upload-artifact@v4
+      - name: Generate Allure report with history
+        uses: simple-elf/allure-report-action@master
         if: always()
         with:
-          name: allure-report
-          path: allure-report/
-          retention-days: 30
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
+
+      - name: Publish Allure report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4

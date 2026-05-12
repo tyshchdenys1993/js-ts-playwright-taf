@@ -7,7 +7,6 @@ End-to-end test automation framework for [automationexercise.com](https://www.au
 - [Preconditions](#preconditions)
 - [Installation](#installation)
 - [Commands](#commands)
-- [Reports](#reports)
 - [CI](#ci)
 - [Project structure](#project-structure)
 - [Architecture](#architecture)
@@ -32,8 +31,6 @@ npx playwright install
 | `npm run test:headed` | Run tests with visible browser |
 | `npm run test:debug` | Run tests in debug mode |
 | `npm run report` | Open Playwright HTML report |
-| `npm run allure:generate` | Generate Allure report from results |
-| `npm run allure:open` | Open generated Allure report |
 | `npm run typecheck` | Type-check without emitting files |
 | `npm run lint` | Check code with ESLint |
 | `npm run lint:fix` | Auto-fix ESLint issues |
@@ -46,26 +43,11 @@ npm test -- --project=firefox
 npm test -- --project=webkit
 ```
 
-## Reports
-
-Each test run produces two reports:
-
-**Playwright HTML report** — built-in, opens with `npm run report`.
-
-**Allure report** — richer report with test steps, attachments, and history. To view locally:
-```bash
-npm test
-npm run allure:generate
-npm run allure:open
-```
-
 ## CI
 
 Tests run automatically on push/PR to `master` and can be triggered manually via GitHub Actions (`workflow_dispatch`) with a browser selector.
 
-After a pipeline run, both reports are uploaded as artifacts (retained for 30 days):
-- `allure-report` — download the zip, unzip, open `index.html`
-- `playwright-report` — same approach
+After a pipeline run the Playwright report is uploaded as an artifact (retained for 30 days): download the zip, unzip, open `index.html`.
 
 ## Project structure
 
